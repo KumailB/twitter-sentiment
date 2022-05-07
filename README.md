@@ -1,2 +1,10 @@
-# twitter-sentiment
-Twitter Sentiment Analysis 
+## Create a .env file 
+```
+TWITTER_API_KEY=
+TWITTER_API_KEY_SECRET=
+TWITTER_BEARER_TOKEN=
+ES_CLOUD_ID=
+ES_USERNAME=
+ES_PASSWORD=
+
+```
