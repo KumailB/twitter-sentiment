@@ -8,7 +8,6 @@ load_dotenv()
 
 token = os.getenv('TWITTER_BEARER_TOKEN')
 
-
 class Producer(tweepy.StreamingClient):
     def __init__(self, token):
         super(Producer, self).__init__(token)
@@ -22,7 +21,14 @@ class Producer(tweepy.StreamingClient):
         # Producer produces data for consumer
         # Data comes from Twitter
         print(data)
-        self.producer.send("quickstart-events", ("twitter_stream_" + hashtag).encode('utf-8'))
+        callback = self.producer.send("tweets", ("twitter_stream_" + hashtag).encode('utf-8'))
+        try:
+            record_metadata = callback.get(timeout=10)
+        except KafkaError:
+        # Decide what to do if produce request failed...
+            print("Failed!")
+            log.exception()
+            pass
         print("Sent")
         return True
 

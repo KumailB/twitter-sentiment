@@ -2,7 +2,7 @@ import os
 from textblob import TextBlob
 from elasticsearch import Elasticsearch
 from kafka import KafkaConsumer
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 import json
 
 from pyspark import SparkConf, SparkContext
@@ -11,10 +11,13 @@ from pyspark.streaming.kafka import KafkaUtils
 
 #load_dotenv()
 
-es_cloud_id = "6350-hw4:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJDczYzBkMzI1ZGE2YjQxMDU4NjA5Mjg5ZWFjNjMyNDdlJGUzZDJmY2ViNzEzOTQ5MGU5OTU4MDRmMGQwM2Q3Y2Q3" #os.getenv('ES_CLOUD_ID')
-es_username = "elastic"#os.getenv('ES_USERNAME')
-es_password = "YL8gTusa3ATuVXhpiHppdWCL"#os.getenv('ES_PASSWORD')
+es_cloud_id = os.getenv('ES_CLOUD_ID')
+es_username = os.getenv('ES_USERNAME')
+es_password = os.getenv('ES_PASSWORD')
 
+print(es_cloud_id)
+
+exit()
 es = Elasticsearch(cloud_id=es_cloud_id, http_auth=(es_username, es_password))
 conf = SparkConf().setMaster("local[2]").setAppName("Streamer")
 sc = SparkContext(conf=conf)
